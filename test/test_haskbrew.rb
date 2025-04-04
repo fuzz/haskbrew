@@ -7,7 +7,7 @@ class TestHaskbrew < Minitest::Test
     refute_nil ::Haskbrew::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_core_modules_loaded
+    assert defined?(Haskbrew::Cabal), "Cabal module should be loaded"
   end
 end

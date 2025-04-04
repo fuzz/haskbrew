@@ -1,0 +1,48 @@
+cabal-version:       2.4
+name:                sample-project
+version:             0.1.0
+synopsis:            A sample project for testing
+description:         A longer description that
+                     spans multiple lines with
+                     proper indentation.
+license:             MIT
+license-file:        LICENSE
+author:              Test Author
+maintainer:          test@example.com
+homepage:            https://example.com
+category:            Development
+build-type:          Simple
+
+extra-source-files:
+  README.md
+  CHANGELOG.md
+  LICENSE
+
+source-repository head
+  type:              git
+  location:          https://github.com/example/sample-project
+
+common deps
+  build-depends:
+    base >= 4.7 && < 5,
+    text >= 1.2 && < 2.2
+
+library
+  import:            deps
+  hs-source-dirs:    src
+  exposed-modules:   
+    Sample.Core
+    Sample.Types
+  build-depends:     
+    aeson >= 2.0 && < 3.0
+  default-language:  Haskell2010
+  ghc-options:       -Wall
+
+executable sample-app
+  import:            deps
+  hs-source-dirs:    app
+  main-is:           Main.hs
+  build-depends:     
+    sample-project
+  default-language:  Haskell2010
+  ghc-options:       -Wall

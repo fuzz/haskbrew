@@ -1,0 +1,14 @@
+module Haskbrew
+  class Cabal
+    attr_reader version: String
+    attr_reader name: String
+    attr_reader file_path: String
+
+    def initialize: (String file_path) -> void
+    def update_version: (String new_version) -> String
+    def dependencies: () -> Array[String]
+
+    private
+    def extract_field: (String field) -> String
+  end
+end
