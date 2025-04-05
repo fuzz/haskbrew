@@ -41,4 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest-reporters', '~> 1.5'
   spec.add_development_dependency 'rubocop', '~> 1.75'
   spec.add_development_dependency 'sorbet', '~> 0.5'
+  spec.add_development_dependency 'tapioca', '~> 0.16'
 end

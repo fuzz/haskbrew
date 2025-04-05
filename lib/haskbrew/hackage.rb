@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'net/http'
@@ -49,7 +50,7 @@ module Haskbrew
             "--user \"#{username}:#{password}\" " \
             '"https://hackage.haskell.org/packages/upload"'
 
-      system(cmd)
+      T.must(system(cmd))
     end
 
     sig { params(version: String).returns(T.nilable(String)) }
@@ -65,7 +66,7 @@ module Haskbrew
 
       max_attempts = 3
       attempt = 1
-      sha256 = nil
+      sha256 = T.let(nil, T.nilable(String))
 
       while attempt <= max_attempts && sha256.nil?
         puts "Attempt #{attempt} of #{max_attempts} to calculate SHA256..."
@@ -83,7 +84,7 @@ module Haskbrew
               break
             else
               puts 'Invalid SHA256 obtained. Retrying...'
-              sha256 = nil
+              sha256 = T.let(nil, T.nilable(String))
             end
           else
             puts 'Package not available yet or empty response.'
@@ -140,7 +141,7 @@ module Haskbrew
     sig { params(package_path: String).returns(T::Boolean) }
     def publish_package(package_path)
       puts 'Uploading package to Hackage...'
-      system("cabal upload --publish \"#{package_path}\"")
+      T.must(system("cabal upload --publish \"#{package_path}\""))
     end
 
     sig { params(message: String, default_no: T::Boolean).returns(T::Boolean) }

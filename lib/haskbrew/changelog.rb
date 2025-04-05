@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'date'
@@ -50,7 +51,7 @@ module Haskbrew
       # Extract the latest version entry
       if content =~ /## \[([^\]]+)\][^\n]*\n\n(.*?)(?=\n## |\Z)/m
         version = ::Regexp.last_match(1)
-        notes = ::Regexp.last_match(2).strip
+        notes = T.must(::Regexp.last_match(2)).strip
 
         return { version: version, notes: notes }
       end

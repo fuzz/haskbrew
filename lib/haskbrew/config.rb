@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'fileutils'
@@ -9,8 +10,8 @@ module Haskbrew
   class Config
     extend T::Sig
 
-    CONFIG_DIR = File.expand_path('~/.config/haskbrew').freeze
-    CONFIG_FILE = File.join(CONFIG_DIR, 'config.toml').freeze
+    CONFIG_DIR = T.let(File.expand_path('~/.config/haskbrew').freeze, String)
+    CONFIG_FILE = T.let(File.join(CONFIG_DIR, 'config.toml').freeze, String)
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def self.load

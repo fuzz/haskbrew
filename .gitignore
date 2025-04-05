@@ -1,3 +1,4 @@
+*.rej
 .DS_Store
 /.bundle/
 /.yardoc

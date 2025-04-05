@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
@@ -19,11 +20,11 @@ module Haskbrew
     sig { params(file_path: String).void }
     def initialize(file_path)
       @file_path = file_path
-      @content = File.read(file_path)
+      @content = T.let(File.read(file_path), String)
 
       # Extract name and version with specific regexes
-      @name = extract_field('name')
-      @version = extract_field('version')
+      @name = T.let(extract_field('name'), String)
+      @version = T.let(extract_field('version'), String)
     end
 
     sig { params(new_version: String).returns(String) }
@@ -34,6 +35,7 @@ module Haskbrew
       # Only write if something actually changed
       if updated_content != @content
         File.write(@file_path, updated_content)
+        # These variables are already declared in initialize, so we don't use T.let again
         @content = updated_content
         @version = new_version
       end
@@ -49,8 +51,10 @@ module Haskbrew
 
       @content.scan(/build-depends:.*?(?=\n\S|\Z)/m).each do |match|
         # Extract package names without version constraints
-        match.scan(/\b([a-zA-Z][a-zA-Z0-9-]*)[,\s<>=]/).each do |dep|
-          deps << dep.first
+        match_str = T.cast(match, String)
+        match_str.scan(/\b([a-zA-Z][a-zA-Z0-9-]*)[,\s<>=]/).each do |dep_arr|
+          # dep_arr is an array where the first element is the capture group
+          deps << dep_arr[0]
         end
       end
 
@@ -64,7 +68,7 @@ module Haskbrew
       # Use a specific regex targeting the field at the beginning of a line
       # followed by colon and whitespace
       if @content =~ /^#{field}:\s*([^\n]+)/
-        ::Regexp.last_match(1).strip
+        T.must(::Regexp.last_match(1)).strip
       else
         ''
       end

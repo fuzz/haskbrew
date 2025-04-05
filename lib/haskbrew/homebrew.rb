@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
@@ -10,8 +11,8 @@ module Haskbrew
     sig { params(interactive: T::Boolean).void }
     def initialize(interactive = true)
       @interactive = interactive
-      @tap_dir = find_homebrew_tap
-      @formula_path = find_formula_path
+      @tap_dir = T.let(find_homebrew_tap, T.nilable(String))
+      @formula_path = T.let(find_formula_path, T.nilable(String))
     end
 
     sig { params(version: String, sha256: String).returns(T::Boolean) }
@@ -185,23 +186,27 @@ module Haskbrew
       File.basename(Dir.pwd)
     end
 
+
     sig { returns(T::Array[String]) }
     def repo_info
       # Extract owner and repo from git remote
       remote = `git remote get-url origin`.chomp
-      return [::Regexp.last_match(1), ::Regexp.last_match(2)] if remote =~ %r{github\.com[:/]([^/]+)/([^/]+)\.git}
+      if remote =~ %r{github\.com[:/]([^/]+)/([^/]+)\.git}
+        owner = T.let(T.must(::Regexp.last_match(1)), String)
+        repo = T.let(T.must(::Regexp.last_match(2)), String)
+        return [owner, repo]
+      end
 
       %w[user repo]
     end
-
     sig { returns(String) }
     def repo_owner
-      repo_info[0]
+      T.must(repo_info[0])
     end
 
     sig { returns(String) }
     def repo_name
-      repo_info[1]
+      T.must(repo_info[1])
     end
 
     sig { params(message: String, default_no: T::Boolean).returns(T::Boolean) }
