@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sorbet-runtime"
+require 'sorbet-runtime'
 
 module Haskbrew
   # Minimal Cabal file handler for version management
@@ -22,8 +22,8 @@ module Haskbrew
       @content = File.read(file_path)
 
       # Extract name and version with specific regexes
-      @name = extract_field("name")
-      @version = extract_field("version")
+      @name = extract_field('name')
+      @version = extract_field('version')
     end
 
     sig { params(new_version: String).returns(String) }
@@ -49,7 +49,7 @@ module Haskbrew
 
       @content.scan(/build-depends:.*?(?=\n\S|\Z)/m).each do |match|
         # Extract package names without version constraints
-        match.scan(/\b([a-zA-Z][a-zA-Z0-9\-]*)[,\s<>=]/).each do |dep|
+        match.scan(/\b([a-zA-Z][a-zA-Z0-9-]*)[,\s<>=]/).each do |dep|
           deps << dep.first
         end
       end
@@ -64,9 +64,9 @@ module Haskbrew
       # Use a specific regex targeting the field at the beginning of a line
       # followed by colon and whitespace
       if @content =~ /^#{field}:\s*([^\n]+)/
-        $1.strip
+        ::Regexp.last_match(1).strip
       else
-        ""
+        ''
       end
     end
   end

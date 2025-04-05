@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "haskbrew"
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'haskbrew'
 
-require "minitest/autorun"
+require 'minitest/autorun'
