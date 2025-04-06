@@ -5,9 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build/Test/Lint Commands
 - Run all tests: `bundle exec rake test`
 - Run single test: `bundle exec ruby -I lib:test test/test_file.rb -n test_name`
-- Run lint/style check: `bundle exec rake standard`
-- Run all checks: `bundle exec rake` (runs both tests and standard)
-
+- Run lint/style check: `bundle exec rubocop -a`
+- Run type check: `bundle exec srb tc`
 ## Code Style Guidelines
 - Ruby version: >= 3.1.0
 - Use frozen_string_literal: true at the top of all Ruby files
