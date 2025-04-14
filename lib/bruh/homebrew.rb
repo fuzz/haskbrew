@@ -186,7 +186,6 @@ module Bruh
       File.basename(Dir.pwd)
     end
 
-
     sig { returns(T::Array[String]) }
     def repo_info
       # Extract owner and repo from git remote

@@ -28,6 +28,7 @@ class TestCabal < Minitest::Test
 
   def test_updating_version
     cabal = Bruh::Cabal.new(@temp_file.path)
+
     assert_equal '0.1.0', cabal.version
 
     # Update the version
@@ -38,6 +39,7 @@ class TestCabal < Minitest::Test
 
     # Read the file again to verify the change was written
     new_cabal = Bruh::Cabal.new(@temp_file.path)
+
     assert_equal '0.2.0', new_cabal.version
   end
 
@@ -46,7 +48,8 @@ class TestCabal < Minitest::Test
 
     # Check that we can extract dependencies
     deps = cabal.dependencies
-    assert deps.is_a?(Array), 'Dependencies should be an array'
+
+    assert_kind_of Array, deps, 'Dependencies should be an array'
     assert_includes deps, 'base', "Should extract 'base' dependency"
     assert_includes deps, 'text', "Should extract 'text' dependency"
   end

@@ -72,10 +72,12 @@ class TestIntegration < Minitest::Test
 
     # Check that the cabal version was updated
     cabal_content = File.read(@cabal_path)
+
     assert_includes cabal_content, 'version: 0.1.1'
 
     # Check that the changelog was updated
     changelog_content = File.read(@changelog_path)
+
     assert_includes changelog_content, '## [0.1.1]'
   end
 
@@ -99,6 +101,7 @@ class TestIntegration < Minitest::Test
     # Test each case
     test_cases.each do |current, expected|
       actual = increment_method.call(current)
+
       assert_equal expected, actual, "Failed for input: #{current}"
     end
   end

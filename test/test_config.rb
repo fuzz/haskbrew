@@ -34,13 +34,13 @@ class TestConfig < Minitest::Test
 
   def test_load_creates_default_config
     # Config shouldn't exist yet
-    refute File.exist?(Bruh::Config::CONFIG_FILE)
+    refute_path_exists Bruh::Config::CONFIG_FILE
 
     # Loading should create the default config
     config = Bruh::Config.load
 
     # The file should now exist
-    assert File.exist?(Bruh::Config::CONFIG_FILE)
+    assert_path_exists Bruh::Config::CONFIG_FILE
 
     # Check default values
     assert_equal '', config[:hackage_username]
@@ -60,6 +60,7 @@ class TestConfig < Minitest::Test
 
     # Save it
     result = Bruh::Config.save(test_config)
+
     assert result
 
     # Load it back

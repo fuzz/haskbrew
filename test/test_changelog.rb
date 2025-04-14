@@ -38,7 +38,7 @@ class TestChangelog < Minitest::Test
 
   def test_update_with_new_version
     # Also override ENV['EDITOR'] to avoid actually opening an editor
-    original_editor = ENV['EDITOR']
+    original_editor = ENV.fetch('EDITOR', nil)
     ENV['EDITOR'] = 'echo'
 
     # Run the update with interactive = false to avoid gets
@@ -49,6 +49,7 @@ class TestChangelog < Minitest::Test
 
     # Verify changelog was updated
     content = File.read(@changelog_path)
+
     assert_includes content, '## [0.1.3] -'
     assert_includes content, '- Add your changes here'
 
@@ -68,7 +69,8 @@ class TestChangelog < Minitest::Test
     assert result
 
     content = File.read(@changelog_path)
-    assert_equal 1, content.scan(/## \[0\.1\.3\]/).size
+
+    assert_equal 1, content.scan('## [0.1.3]').size
   end
 
   def test_generate_release_notes
@@ -95,8 +97,9 @@ class TestChangelog < Minitest::Test
     # Update should create a new one
     Bruh::Changelog.update('0.1.0', @temp_dir, false)
 
-    assert File.exist?(@changelog_path)
+    assert_path_exists @changelog_path
     content = File.read(@changelog_path)
+
     assert_includes content, '# Changelog'
     assert_includes content, '## [0.1.0]'
   end
