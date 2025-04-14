@@ -39,7 +39,10 @@ module Bruh
       cabal.update_version(new_version)
 
       # Update changelog
-      Changelog.update(new_version, current_dir, options[:interactive]) if File.exist?('CHANGELOG.md')
+      if File.exist?('CHANGELOG.md')
+        interactive = options.fetch(:interactive, true)
+        Changelog.update(new_version, current_dir, interactive: interactive)
+      end
 
       # Handle the rest of the release process based on options
       true

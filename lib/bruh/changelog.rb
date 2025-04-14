@@ -10,7 +10,7 @@ module Bruh
     extend T::Sig
 
     sig { params(version: String, project_root: String, interactive: T::Boolean).returns(T::Boolean) }
-    def self.update(version, project_root, interactive = true)
+    def self.update(version, project_root, interactive: true)
       changelog_path = File.join(project_root, 'CHANGELOG.md')
       today = Date.today.strftime('%Y-%m-%d')
 

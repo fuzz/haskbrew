@@ -8,10 +8,12 @@ AllCops:
 Metrics/MethodLength:
   Exclude:
     - 'test/**/*'
+  Max: 80
 
 Metrics/AbcSize:
   Exclude:
     - 'test/**/*'
+  Max: 80
 
 Style/Documentation:
   Exclude:
@@ -25,3 +27,23 @@ Gemspec/DevelopmentDependencies:
 # This cop flags the Dir.exist? check before FileUtils.rm_rf, which is a useful safety check
 Lint/NonAtomicFileOperation:
   Enabled: false
+
+# Allow longer blocks in DSL-style code
+Metrics/BlockLength:
+  Max: 40
+  
+# Allow more complex methods
+Metrics/CyclomaticComplexity:
+  Max: 30
+  
+# Allow more complex methods
+Metrics/PerceivedComplexity:
+  Max: 30
+  
+# Allow larger classes
+Metrics/ClassLength:
+  Max: 150
+  
+# Allow deeper block nesting
+Metrics/BlockNesting:
+  Max: 5

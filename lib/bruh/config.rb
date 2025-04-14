@@ -53,7 +53,7 @@ module Bruh
     end
 
     sig { params(interactive: T::Boolean).returns(T::Hash[Symbol, T.untyped]) }
-    def self.setup_credentials(interactive = true)
+    def self.setup_credentials(interactive: true)
       config = load
 
       if interactive

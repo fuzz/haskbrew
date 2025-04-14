@@ -11,7 +11,7 @@ module Bruh
     extend T::Sig
 
     sig { params(interactive: T::Boolean).void }
-    def initialize(interactive = true)
+    def initialize(interactive: true)
       @interactive = interactive
     end
 
@@ -145,7 +145,7 @@ module Bruh
     end
 
     sig { params(message: String, default_no: T::Boolean).returns(T::Boolean) }
-    def yes_no_prompt(message, default_no = true)
+    def yes_no_prompt(message, default_no: true)
       return true unless @interactive
 
       default = default_no ? '[y/N]' : '[Y/n]'

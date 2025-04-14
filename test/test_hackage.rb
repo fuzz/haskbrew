@@ -18,7 +18,7 @@ class TestHackage < Minitest::Test
   # These basic tests verify the class structure.
 
   def test_hackage_initialization
-    hackage = Bruh::Hackage.new(false) # non-interactive mode
+    hackage = Bruh::Hackage.new(interactive: false) # non-interactive mode
 
     # Make sure it initializes without errors
     assert_instance_of Bruh::Hackage, hackage

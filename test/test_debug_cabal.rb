@@ -22,7 +22,8 @@ class TestDebugCabal < Minitest::Test
     puts "Version: #{cabal.version.inspect}"
     puts "Dependencies: #{cabal.dependencies.inspect}"
 
-    # This should always pass, we just want to see the debug output
-    assert true
+    # Verify that the cabal file was parsed properly
+    assert_equal 'sample-project', cabal.name
+    assert_equal '0.1.0', cabal.version
   end
 end

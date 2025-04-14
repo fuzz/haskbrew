@@ -39,18 +39,23 @@ class TestHomebrew < Minitest::Test
     FORMULA
 
     # Set up a mock implementation of the class for testing
-    @formula = Bruh::Homebrew.new(false) # non-interactive
+    @formula = Bruh::Homebrew.new(interactive: false) # non-interactive
 
     # Add test methods to override private methods
     def @formula.test_update(version, sha256, formula_path)
       @formula_path = formula_path
 
-      # Override package_name method for testing
-      def self.package_name
+      # Use a lambda instead of nested method definition
+      package_name_original = method(:package_name)
+      singleton_class.define_method(:package_name) do
         'test-formula'
       end
 
-      update(version, sha256)
+      result = update(version, sha256)
+
+      # Restore original method
+      singleton_class.define_method(:package_name, package_name_original)
+      result
     end
 
     def @formula.test_update_bottle(bottle_info, formula_path)

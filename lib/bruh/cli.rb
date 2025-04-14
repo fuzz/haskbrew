@@ -65,26 +65,26 @@ module Bruh
       puts 'Running tests to verify everything works...'
       unless system('bundle exec rake test')
         puts 'Tests failed. Aborting release process.'
-        exit 1 unless yes_no_prompt('Continue anyway?', false) && interactive
+        exit 1 unless yes_no_prompt('Continue anyway?', default_no: false) && interactive
       end
 
       # Commit changes if in interactive mode
-      if interactive && yes_no_prompt('Commit version bump and changelog?')
+      if interactive && yes_no_prompt('Commit version bump and changelog?', default_no: true)
         system("git add #{cabal_file} CHANGELOG.md")
         system("git commit -m \"Bump version to #{new_version}\"")
 
-        system('git push origin main') if yes_no_prompt('Push changes to origin?')
+        system('git push origin main') if yes_no_prompt('Push changes to origin?', default_no: true)
 
-        if yes_no_prompt("Create tag v#{new_version}?")
+        if yes_no_prompt("Create tag v#{new_version}?", default_no: true)
           if system("git rev-parse v#{new_version} >/dev/null 2>&1")
-            if yes_no_prompt('Tag already exists. Update it?')
+            if yes_no_prompt('Tag already exists. Update it?', default_no: true)
               system("git tag -fa v#{new_version} -m \"Release version #{new_version}\"")
             end
           else
             system("git tag -a v#{new_version} -m \"Release version #{new_version}\"")
           end
 
-          system("git push origin v#{new_version}") if yes_no_prompt('Push tag to origin?')
+          system("git push origin v#{new_version}") if yes_no_prompt('Push tag to origin?', default_no: true)
         end
       end
 
@@ -179,7 +179,7 @@ module Bruh
       input.empty? ? default : input
     end
 
-    def yes_no_prompt(message, default_no = true)
+    def yes_no_prompt(message, default_no: true)
       default = default_no ? '[y/N]' : '[Y/n]'
       print "#{message} #{default} "
       response = $stdin.gets.chomp.downcase

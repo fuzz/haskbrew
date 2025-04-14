@@ -9,7 +9,7 @@ module Bruh
     extend T::Sig
 
     sig { params(interactive: T::Boolean).void }
-    def initialize(interactive = true)
+    def initialize(interactive: true)
       @interactive = interactive
       @tap_dir = T.let(find_homebrew_tap, T.nilable(String))
       @formula_path = T.let(find_formula_path, T.nilable(String))
@@ -58,7 +58,7 @@ module Bruh
           system("git add #{File.basename(@formula_path)}")
           system("git commit -m \"Update formula to version #{version}\"")
 
-          system('git push origin main') if yes_no_prompt('Push formula changes to origin?')
+          system('git push origin main') if yes_no_prompt('Push formula changes to origin?', default_no: true)
         end
       end
 
@@ -134,7 +134,7 @@ module Bruh
           system("git add #{File.basename(@formula_path)}")
           system("git commit -m \"Add bottle for version #{bottle_info[:version]}\"")
 
-          system('git push origin main') if yes_no_prompt('Push bottle changes to origin?')
+          system('git push origin main') if yes_no_prompt('Push bottle changes to origin?', default_no: true)
         end
       end
 
@@ -209,7 +209,7 @@ module Bruh
     end
 
     sig { params(message: String, default_no: T::Boolean).returns(T::Boolean) }
-    def yes_no_prompt(message, default_no = true)
+    def yes_no_prompt(message, default_no: true)
       return true unless @interactive
 
       default = default_no ? '[y/N]' : '[Y/n]'

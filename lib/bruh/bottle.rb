@@ -11,7 +11,7 @@ module Bruh
     extend T::Sig
 
     sig { params(interactive: T::Boolean).void }
-    def initialize(interactive = true)
+    def initialize(interactive: true)
       @interactive = interactive
       @tap_dir = T.let(find_homebrew_tap, T.nilable(String))
     end
@@ -40,7 +40,10 @@ module Bruh
         end
 
         # Create bottle with JSON output
-        unless system("brew bottle --json --root-url=\"https://github.com/#{repo_owner}/#{repo_name}/releases/download/v#{version}\" #{tap_name}/#{package_name}")
+        bottle_cmd = 'brew bottle --json '
+        bottle_cmd += "--root-url=\"https://github.com/#{repo_owner}/#{repo_name}/releases/download/v#{version}\" "
+        bottle_cmd += "#{tap_name}/#{package_name}"
+        unless system(bottle_cmd)
           puts 'Failed to create bottle'
           return nil
         end
@@ -106,7 +109,9 @@ module Bruh
 
         unless release_exists
           puts "Release v#{version} doesn't exist. Creating it now..."
-          unless system("gh release create \"v#{version}\" --title \"Release v#{version}\" --notes \"Release v#{version} with Homebrew bottle support.\"")
+          release_cmd = "gh release create \"v#{version}\" --title \"Release v#{version}\" "
+          release_cmd += "--notes \"Release v#{version} with Homebrew bottle support.\""
+          unless system(release_cmd)
             puts 'Failed to create GitHub release'
             return false
           end
@@ -190,7 +195,7 @@ module Bruh
     end
 
     sig { params(message: String, default_no: T::Boolean).returns(T::Boolean) }
-    def yes_no_prompt(message, default_no = true)
+    def yes_no_prompt(message, default_no: true)
       return true unless @interactive
 
       default = default_no ? '[y/N]' : '[Y/n]'

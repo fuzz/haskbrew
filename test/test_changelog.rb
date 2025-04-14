@@ -42,7 +42,7 @@ class TestChangelog < Minitest::Test
     ENV['EDITOR'] = 'echo'
 
     # Run the update with interactive = false to avoid gets
-    Bruh::Changelog.update('0.1.3', @temp_dir, false)
+    Bruh::Changelog.update('0.1.3', @temp_dir, interactive: false)
 
     # Restore EDITOR
     ENV['EDITOR'] = original_editor
@@ -60,10 +60,10 @@ class TestChangelog < Minitest::Test
 
   def test_existing_version_not_duplicated
     # First add version 0.1.3
-    Bruh::Changelog.update('0.1.3', @temp_dir, false)
+    Bruh::Changelog.update('0.1.3', @temp_dir, interactive: false)
 
     # Try to add it again
-    result = Bruh::Changelog.update('0.1.3', @temp_dir, false)
+    result = Bruh::Changelog.update('0.1.3', @temp_dir, interactive: false)
 
     # It should return true and not duplicate the entry
     assert result
@@ -75,7 +75,7 @@ class TestChangelog < Minitest::Test
 
   def test_generate_release_notes
     # Add a version entry
-    Bruh::Changelog.update('0.1.3', @temp_dir, false)
+    Bruh::Changelog.update('0.1.3', @temp_dir, interactive: false)
 
     # Manually update the release notes (since we're not using an editor)
     content = File.read(@changelog_path)
@@ -95,7 +95,7 @@ class TestChangelog < Minitest::Test
     FileUtils.rm(@changelog_path)
 
     # Update should create a new one
-    Bruh::Changelog.update('0.1.0', @temp_dir, false)
+    Bruh::Changelog.update('0.1.0', @temp_dir, interactive: false)
 
     assert_path_exists @changelog_path
     content = File.read(@changelog_path)
