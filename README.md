@@ -1,6 +1,9 @@
 # Bruh
 
-Bruh is a Ruby gem that automates the release process for Haskell packages to both Hackage and Homebrew. It streamlines the workflow of releasing Haskell packages by handling version updates, changelog management, Hackage publishing, and Homebrew formula updates.
+Bruh is a Ruby gem that automates the release process for Haskell packages to
+both Hackage and Homebrew. It streamlines the workflow of releasing Haskell
+packages by handling version updates, changelog management, Hackage publishing,
+and Homebrew formula updates.
 
 ## Features
 
