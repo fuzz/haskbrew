@@ -18,9 +18,9 @@ class TestBottle < Minitest::Test
   # These basic tests verify the class structure.
 
   def test_bottle_initialization
-    bottle = Haskbrew::Bottle.new(false) # non-interactive mode
+    bottle = Bruh::Bottle.new(false) # non-interactive mode
 
     # Make sure it initializes without errors
-    assert_instance_of Haskbrew::Bottle, bottle
+    assert_instance_of Bruh::Bottle, bottle
   end
 end

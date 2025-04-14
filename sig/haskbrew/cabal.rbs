@@ -1,4 +1,4 @@
-module Haskbrew
+module Bruh
   class Cabal
     attr_reader version: String
     attr_reader name: String

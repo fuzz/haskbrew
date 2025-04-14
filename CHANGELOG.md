@@ -4,7 +4,7 @@
 
 ## [0.1.0] - 2025-04-05
 
-Initial release of Haskbrew.
+Initial release of Bruh.
 
 ### Added
 - Cabal file parsing and version management

@@ -14,7 +14,7 @@ class TestDebugCabal < Minitest::Test
     puts '=== END FIXTURE FILE ==='
 
     # Try to parse the file
-    cabal = Haskbrew::Cabal.new(fixture_path)
+    cabal = Bruh::Cabal.new(fixture_path)
 
     # Print parsed content for debugging
     puts '=== PARSED CONTENT ==='

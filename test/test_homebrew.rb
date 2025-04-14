@@ -12,7 +12,7 @@ class TestHomebrew < Minitest::Test
     # Create a sample formula file
     File.write(@formula_file, <<~FORMULA)
       class TestFormula < Formula
-        desc "Test formula for Haskbrew"
+        desc "Test formula for Bruh"
         homepage "https://github.com/test/test-formula"
         url "https://hackage.haskell.org/package/test-formula-0.1.2/test-formula-0.1.2.tar.gz"
         sha256 "abc123def456"
@@ -39,7 +39,7 @@ class TestHomebrew < Minitest::Test
     FORMULA
 
     # Set up a mock implementation of the class for testing
-    @formula = Haskbrew::Homebrew.new(false) # non-interactive
+    @formula = Bruh::Homebrew.new(false) # non-interactive
 
     # Add test methods to override private methods
     def @formula.test_update(version, sha256, formula_path)
@@ -114,7 +114,7 @@ class TestHomebrew < Minitest::Test
     no_bottle_file = File.join(@temp_dir, 'no_bottle.rb')
     File.write(no_bottle_file, <<~FORMULA)
       class TestFormula < Formula
-        desc "Test formula for Haskbrew"
+        desc "Test formula for Bruh"
         homepage "https://github.com/test/test-formula"
         url "https://hackage.haskell.org/package/test-formula-0.1.2/test-formula-0.1.2.tar.gz"
         sha256 "abc123def456"

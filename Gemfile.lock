@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    haskbrew (0.1.0)
+    bruh (0.1.0)
       json (~> 2.6)
       parslet (~> 2.0)
       sorbet-runtime (~> 0.5)
@@ -115,7 +115,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  haskbrew!
+  bruh!
   minitest (~> 5.16)
   minitest-reporters (~> 1.5)
   rake (~> 13.0)

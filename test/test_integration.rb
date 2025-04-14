@@ -62,7 +62,7 @@ class TestIntegration < Minitest::Test
 
   def test_non_interactive_release
     # Create core instance
-    core = Haskbrew::Core.new
+    core = Bruh::Core.new
 
     # Run release in non-interactive mode
     result = core.release('0.1.1', interactive: false)
@@ -90,10 +90,10 @@ class TestIntegration < Minitest::Test
     }
 
     # Create a Core instance
-    instance = Haskbrew::Core.new
+    instance = Bruh::Core.new
 
     # Get the private method
-    increment_method = Haskbrew::Core.instance_method(:increment_version)
+    increment_method = Bruh::Core.instance_method(:increment_version)
     increment_method = increment_method.bind(instance)
 
     # Test each case

@@ -19,7 +19,7 @@ class TestCabal < Minitest::Test
   end
 
   def test_parsing_cabal_file
-    cabal = Haskbrew::Cabal.new(@fixture_path)
+    cabal = Bruh::Cabal.new(@fixture_path)
 
     # Test basic attributes
     assert_equal 'sample-project', cabal.name
@@ -27,7 +27,7 @@ class TestCabal < Minitest::Test
   end
 
   def test_updating_version
-    cabal = Haskbrew::Cabal.new(@temp_file.path)
+    cabal = Bruh::Cabal.new(@temp_file.path)
     assert_equal '0.1.0', cabal.version
 
     # Update the version
@@ -37,12 +37,12 @@ class TestCabal < Minitest::Test
     assert_equal '0.2.0', cabal.version
 
     # Read the file again to verify the change was written
-    new_cabal = Haskbrew::Cabal.new(@temp_file.path)
+    new_cabal = Bruh::Cabal.new(@temp_file.path)
     assert_equal '0.2.0', new_cabal.version
   end
 
   def test_extracting_dependencies
-    cabal = Haskbrew::Cabal.new(@fixture_path)
+    cabal = Bruh::Cabal.new(@fixture_path)
 
     # Check that we can extract dependencies
     deps = cabal.dependencies

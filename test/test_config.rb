@@ -6,18 +6,18 @@ require 'fileutils'
 class TestConfig < Minitest::Test
   def setup
     # Save original config location
-    @original_config_dir = Haskbrew::Config::CONFIG_DIR
-    @original_config_file = Haskbrew::Config::CONFIG_FILE
+    @original_config_dir = Bruh::Config::CONFIG_DIR
+    @original_config_file = Bruh::Config::CONFIG_FILE
 
     # Create a temp directory for config
     @temp_dir = Dir.mktmpdir
 
     # Override constants for testing
-    Haskbrew::Config.send(:remove_const, :CONFIG_DIR)
-    Haskbrew::Config.const_set(:CONFIG_DIR, @temp_dir)
+    Bruh::Config.send(:remove_const, :CONFIG_DIR)
+    Bruh::Config.const_set(:CONFIG_DIR, @temp_dir)
 
-    Haskbrew::Config.send(:remove_const, :CONFIG_FILE)
-    Haskbrew::Config.const_set(:CONFIG_FILE, File.join(@temp_dir, 'config.toml'))
+    Bruh::Config.send(:remove_const, :CONFIG_FILE)
+    Bruh::Config.const_set(:CONFIG_FILE, File.join(@temp_dir, 'config.toml'))
   end
 
   def teardown
@@ -25,22 +25,22 @@ class TestConfig < Minitest::Test
     FileUtils.rm_rf(@temp_dir)
 
     # Restore original constants
-    Haskbrew::Config.send(:remove_const, :CONFIG_DIR)
-    Haskbrew::Config.const_set(:CONFIG_DIR, @original_config_dir)
+    Bruh::Config.send(:remove_const, :CONFIG_DIR)
+    Bruh::Config.const_set(:CONFIG_DIR, @original_config_dir)
 
-    Haskbrew::Config.send(:remove_const, :CONFIG_FILE)
-    Haskbrew::Config.const_set(:CONFIG_FILE, @original_config_file)
+    Bruh::Config.send(:remove_const, :CONFIG_FILE)
+    Bruh::Config.const_set(:CONFIG_FILE, @original_config_file)
   end
 
   def test_load_creates_default_config
     # Config shouldn't exist yet
-    refute File.exist?(Haskbrew::Config::CONFIG_FILE)
+    refute File.exist?(Bruh::Config::CONFIG_FILE)
 
     # Loading should create the default config
-    config = Haskbrew::Config.load
+    config = Bruh::Config.load
 
     # The file should now exist
-    assert File.exist?(Haskbrew::Config::CONFIG_FILE)
+    assert File.exist?(Bruh::Config::CONFIG_FILE)
 
     # Check default values
     assert_equal '', config[:hackage_username]
@@ -59,11 +59,11 @@ class TestConfig < Minitest::Test
     }
 
     # Save it
-    result = Haskbrew::Config.save(test_config)
+    result = Bruh::Config.save(test_config)
     assert result
 
     # Load it back
-    loaded_config = Haskbrew::Config.load
+    loaded_config = Bruh::Config.load
 
     # Check values
     assert_equal 'testuser', loaded_config[:hackage_username]
@@ -74,18 +74,18 @@ class TestConfig < Minitest::Test
 
   def test_get_and_set
     # Set a value
-    Haskbrew::Config.set(:test_key, 'test_value')
+    Bruh::Config.set(:test_key, 'test_value')
 
     # Get it back
-    value = Haskbrew::Config.get(:test_key)
+    value = Bruh::Config.get(:test_key)
 
     assert_equal 'test_value', value
 
     # Update the value
-    Haskbrew::Config.set(:test_key, 'updated_value')
+    Bruh::Config.set(:test_key, 'updated_value')
 
     # Get it again
-    updated = Haskbrew::Config.get(:test_key)
+    updated = Bruh::Config.get(:test_key)
 
     assert_equal 'updated_value', updated
   end

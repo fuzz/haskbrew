@@ -1,6 +1,6 @@
-# Haskbrew
+# Bruh
 
-Haskbrew is a Ruby gem that automates the release process for Haskell packages to both Hackage and Homebrew. It streamlines the workflow of releasing Haskell packages by handling version updates, changelog management, Hackage publishing, and Homebrew formula updates.
+Bruh is a Ruby gem that automates the release process for Haskell packages to both Hackage and Homebrew. It streamlines the workflow of releasing Haskell packages by handling version updates, changelog management, Hackage publishing, and Homebrew formula updates.
 
 ## Features
 
@@ -16,27 +16,27 @@ Haskbrew is a Ruby gem that automates the release process for Haskell packages t
 Install the gem by executing:
 
 ```bash
-gem install haskbrew
+gem install bruh
 ```
 
 ## Usage
 
 ### Command Line Interface
 
-The primary interface is through the `haskbrew` command:
+The primary interface is through the `bruh` command:
 
 ```bash
 # Interactive release process
-haskbrew release
+bruh release
 
 # Non-interactive release with specific version
-haskbrew release --non-interactive --version 0.1.2
+bruh release --non-interactive --version 0.1.2
 
 # Skip specific steps
-haskbrew release --skip-hackage --skip-bottles
+bruh release --skip-hackage --skip-bottles
 
 # Show version
-haskbrew version
+bruh version
 ```
 
 ### Non-interactive Release Script
@@ -56,16 +56,16 @@ bin/release --interactive
 
 ### Configuration
 
-Haskbrew stores configuration in `~/.config/haskbrew/config.toml`. For non-interactive usage, you should set up your Hackage credentials:
+Bruh stores configuration in `~/.config/bruh/config.toml`. For non-interactive usage, you should set up your Hackage credentials:
 
 ```bash
 # Setup credentials
-haskbrew config setup
+bruh config setup
 
 # Manually set credentials
-haskbrew config set hackage_username "your-username"
-haskbrew config set hackage_password "your-password"
-haskbrew config set github_token "your-token"
+bruh config set hackage_username "your-username"
+bruh config set hackage_password "your-password"
+bruh config set github_token "your-token"
 ```
 
 ## Development
