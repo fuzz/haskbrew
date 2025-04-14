@@ -83,7 +83,7 @@ module Bruh
         # Update existing bottle block
 
         # Update rebuild directive if needed
-        if rebuild_num > 0
+        if rebuild_num.positive?
           if formula_content =~ /\s+rebuild\s+\d+/
             formula_content.gsub!(/(\s+rebuild\s+)\d+/, "\\1#{rebuild_num}")
           else

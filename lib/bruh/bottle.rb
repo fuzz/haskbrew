@@ -46,7 +46,7 @@ module Bruh
         end
 
         # Find the JSON file created by brew bottle
-        bottle_json = Dir['*.json'].sort_by { |f| File.mtime(f) }.last
+        bottle_json = Dir['*.json'].max_by { |f| File.mtime(f) }
 
         unless bottle_json && File.exist?(bottle_json)
           puts 'Could not find bottle JSON file'
